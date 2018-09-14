@@ -1,0 +1,18 @@
+[program:server_workers]
+command=/home/webapps/venv/bin/python /home/webapps/sshop/manage.py runworker
+directory=/home/web/webapps/
+user={{ gunicorn_user }}
+autostart=true
+autorestart=true
+redirect_stderr=true
+stopasgroup=true
+stdout_logfile = {{ application_log_file }}
+
+[program:server_interface]
+command=/home/webapps/venv/bin/daphne -b 127.0.0.1 -p 8000 sshop.asgi:channel_layer
+directory=/home/webapps/www/
+autostart=true
+autorestart=true
+stopasgroup=true
+user={{ gunicorn_user }}
+stdout_logfile = {{ application_log_file }}

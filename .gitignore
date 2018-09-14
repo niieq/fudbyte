@@ -1,0 +1,10 @@
+/.vagrant
+/static
+*.pyc
+*.db
+*.sqlite3
+fudbyte/settings/local.py
+*.DS_Store
+fudbyte/static/lib/*
+fudbyte/media/*
+*.idea/*

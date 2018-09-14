@@ -1,0 +1,12 @@
+---
+
+git_repo: git@bitbucket.org:asiders/ticket.git
+
+project_name: ticket
+application_name: ticket
+
+ssh_private_key: ~/.ssh/id_rsa
+
+python_version: "3"
+
+env: production

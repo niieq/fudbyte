@@ -1,0 +1,7 @@
+#!/bin/sh
+
+{% if django_environment is defined %}
+	{% for variable_name, value in django_environment.items() %}
+	export {{ variable_name }}="{{ value }}"
+	{% endfor %}
+{% endif %}
