@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from os.path import dirname, join
+from sys import path
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Build paths inside the project like this: join(BASE_DIR, "directory")
+BASE_DIR = dirname(os.path.dirname(os.path.abspath(__file__)))
+APPS_DIR = join(BASE_DIR, 'apps')
+path.append(APPS_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,12 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'compressor',
-    'debug_toolbar',
+    # 'debug_toolbar',
 
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
     'core',
+    'account',
+    'restaurant',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -60,6 +67,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'fudbyte.urls'
@@ -67,7 +75,7 @@ ROOT_URLCONF = 'fudbyte.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -202,3 +210,5 @@ LOGGING = {
         },
     }
 }
+
+AUTH_USER_MODEL = 'account.User'

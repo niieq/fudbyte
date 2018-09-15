@@ -1,4 +1,4 @@
-vagrant-django-template
+Fudbyte - The Food Social Network
 =======================
 
 A template for new Django 1.9 projects developed under Vagrant. Features offered include:

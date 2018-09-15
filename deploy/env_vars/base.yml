@@ -1,9 +1,9 @@
 ---
 
-git_repo: git@bitbucket.org:asiders/ticket.git
+git_repo: git@gitlab.com:equity/fudbyte_v2.git
 
-project_name: ticket
-application_name: ticket
+project_name: fudbyte
+application_name: fudbyte
 
 ssh_private_key: ~/.ssh/id_rsa
 
