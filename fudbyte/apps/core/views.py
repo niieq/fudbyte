@@ -8,6 +8,7 @@ from fudbyte.utils.models import get_object_or_none
 def index(request):
     restaurants = Restaurant.objects.filter(active=True)
     restaurant_filter = request.GET.get('restaurant')
+    food_search = request.GET.get('food')
     food_list = Food.objects.filter(active=True)
 
     if restaurant_filter:
@@ -18,9 +19,12 @@ def index(request):
             if restaurant:
                 food_list = Food.objects.filter(restaurant=restaurant)
 
+    if food_search:
+        food_list = Food.objects.filter(name__icontains=food_search)
+
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(food_list, 10)
+    paginator = Paginator(food_list, 9)
     try:
         foods = paginator.page(page)
     except PageNotAnInteger:
