@@ -203,7 +203,7 @@
 				</form>
 
 				{% else %}
-					<p style="text-align: center;"><a href="/sign_in">Sign In</a> to add your comment</p>
+					<p style="text-align: center;"><a href="/accounts/sign_in">Sign In</a> to add your comment</p>
 				{% endif %}
 
 
@@ -217,7 +217,7 @@
 					<h5 class="heading-title">Featured Foods</h5>
 				</div>
 
-				<%= for feat_food <- @featured_foods do %>
+				{% for feat in featured%}
 
 				<div class="ui-block">
 
@@ -227,23 +227,23 @@
 					<article class="hentry blog-post blog-post-v3 featured-post-item">
 
 						<div class="post-thumb">
-							<a href="/food/<%=feat_food.id %>"><img src="<%= Fudbyte.ImageUploader.url({feat_food.image, feat_food}) %>" alt="photo"></a>
-							<a href="#" class="post-category bg-purple"><%= feat_food.restaurant.name %></a>
+							<a href="/food/{{ feat.slug }}"><img src="{{ feat.image.url }}" alt="photo"></a>
+							<a href="#" class="post-category bg-purple">{{ feat.restaurant.name }}</a>
 						</div>
 
 						<div class="post-content">
 
 							<div class="author-date">
 								by
-								<a class="h6 post__author-name fn" href="#"><%= feat_food.restaurant.name %></a>
+								<a class="h6 post__author-name fn" href="#">{{ feat.restaurant.name }}</a>
 								<div class="post__date">
 									<time class="published" datetime="2017-03-24T18:18">
-										<%# - 5 MONTHS ago %>
+										 <!--5 MONTHS ago-->
 									</time>
 								</div>
 							</div>
 
-							<a href="#" class="h4 post-title"><%= feat_food.name %></a>
+							<a href="#" class="h4 post-title">{{ feat.name }}</a>
 
 							<div class="post-additional-info inline-items">
 
@@ -253,25 +253,25 @@
 											<img src="/img/icon-chat26.png" alt="icon">
 										</a>
 									</li>
-									<%# <li>
-										<a href="#">
-											<img src="/img/icon-chat27.png" alt="icon">
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<img src="/img/icon-chat2.png" alt="icon">
-										</a>
-									</li> %>
+									 <!--<li>-->
+										<!--<a href="#">-->
+											<!--<img src="/img/icon-chat27.png" alt="icon">-->
+										<!--</a>-->
+									<!--</li>-->
+									<!--<li>-->
+										<!--<a href="#">-->
+											<!--<img src="/img/icon-chat2.png" alt="icon">-->
+										<!--</a>-->
+									<!--</li>-->
 								</ul>
 								<div class="names-people-likes">
-									<%= feat_food.likes %>
+									{{ feat.likes }}
 								</div>
 
 								<div class="comments-shared">
 									<a href="#" class="post-add-icon inline-items">
-										<svg class="olymp-speech-balloon-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
-										<span><%= length feat_food.comments %></span>
+										<svg class="olymp-speech-balloon-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
+										<span>{{ feat.comments|length }}</span>
 									</a>
 								</div>
 
@@ -284,7 +284,7 @@
 
 				</div>
 
-				<% end %>
+				{% endfor %}
 
 			</aside>
 		</div>

@@ -23,7 +23,7 @@ def register(request):
             messages.add_message(request, messages.SUCCESS, message='Account Registration Successful.')
             if next_page:
                 return redirect(next_page)
-            return redirect('/?action=login')
+            return redirect('/accouns/login')
         else:
             print(form.errors)
             messages.add_message(request, messages.ERROR,

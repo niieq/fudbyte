@@ -1,3 +1,4 @@
+import uuid
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin)
 from django.db import models
@@ -23,7 +24,17 @@ class UserManager(BaseUserManager):
         return user
 
 
+def user_profile_image(instance, filename):
+    return 'profile/{0}.{1}'.format(
+        uuid.uuid4(),
+        filename.rsplit('.', 1)[1]
+    )
+
+
 class User(AbstractBaseUser, PermissionsMixin):
+
+    GENDER_CHOICES = (('Male', 'Male'),
+                      ('Female', 'Female'))
 
     first_name = models.CharField(_('first name'), max_length=255)
     last_name = models.CharField(_('last name'), max_length=255)
@@ -39,6 +50,12 @@ class User(AbstractBaseUser, PermissionsMixin):
                                    default=timezone.now)
     modified = models.DateTimeField(_('modified'), auto_now=True)
     is_active = models.BooleanField(_('is active'), default=True)
+
+    # profile details
+
+    profile_image = models.ImageField(blank=True, null=True, upload_to=user_profile_image)
+    date_of_birth = models.DateField(blank=True, null=True)
+    gender = models.CharField(max_length=255, blank=True, null=True, choices=GENDER_CHOICES)
 
     objects = UserManager()
 
@@ -61,4 +78,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     @classmethod
     def create_user(cls, first_name, last_name, email, phone, password):
         cls.objects.create_user(email, password, first_name=first_name, last_name=last_name, phone=phone)
-

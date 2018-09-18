@@ -92,6 +92,9 @@ class Food(models.Model):
     def __str__(self):
         return self.name
 
+    def comments(self):
+        return Comment.objects.filter(food=self)
+
     def save(self, *args, **kwargs):
         if not self.slug:
 
