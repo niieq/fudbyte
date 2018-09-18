@@ -1,0 +1,292 @@
+{% extends 'small_header.html' %}
+{% block content %}
+<div class="row mt50">
+	<div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+		<div class="ui-block mb60">
+
+				<article class="hentry blog-post single-post single-post-v3">
+
+					 <!--<a href="#" class="post-category bg-primary">{{ food.restaurant.name }}</a>-->
+
+					<!--<ul class="filter-icons">-->
+						<!--<li>-->
+							<!--<a href="#" class="post-add-icon inline-items">-->
+								<!--<img src="img/icon-chat1.png" alt="icon">-->
+								<!--<span>58</span>-->
+							<!--</a>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<a href="#" class="post-add-icon inline-items">-->
+								<!--<img src="img/icon-chat26.png" alt="icon">-->
+								<!--<span>21</span>-->
+							<!--</a>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<a href="#" class="post-add-icon inline-items">-->
+								<!--<img src="img/icon-chat15.png" alt="icon">-->
+								<!--<span>3</span>-->
+							<!--</a>-->
+						<!--</li>-->
+					<!--</ul> %>-->
+					<h1 class="post-title">{{ food.name }}</h1>
+
+					<div class="author-date">
+						<div class="author-thumb">
+							 <!--<img alt="author" src="/img/friend-harmonic7.jpg" class="avatar">-->
+							<i class="fa fa-users"></i>
+						</div>
+						by
+						<a class="h6 post__author-name fn" href="#">{{ food.restaurant.name }}</a>
+						<div class="post__date">
+							<time class="published" datetime="2017-03-24T18:18">
+
+							</time>
+						</div>
+					</div>
+
+					<div class="post-thumb">
+                        {% if food.image %}
+						<img src="{{ food.image.url }}" alt="food_image">
+                        {% endif %}
+					</div>
+
+					<div class="post-content-wrap">
+
+						<div class="control-block-button post-control-button">
+
+							<a href="#" class="post-add-icon inline-items">
+								<svg class="olymp-speech-balloon-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
+								<span>{{ comments|length }}</span>
+							</a>
+
+							<a href="https://www.facebook.com/sharer/sharer.php?u=fudbyte.com/food/{{ food.slug }}" class="btn btn-control has-i bg-facebook">
+								<i class="fab fa-facebook-f" aria-hidden="true"></i>
+							</a>
+
+							<a href="#" class="btn btn-control has-i bg-twitter">
+								<i class="fab fa-twitter" aria-hidden="true"></i>
+							</a>
+						</div>
+
+						<div class="post-content">
+							<p>{{ food.description }}</p>
+						</div>
+					</div>
+
+
+					<div class="choose-reaction reaction-colored">
+						 <!--<div class="title">Choose your <span>Reaction!</span></div>-->
+
+						<!--<ul>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/icon-chat13.png" alt="icon" data-toggle="tooltip" data-placement="top" data-original-title="LOL">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/icon-chat15.png" alt="icon" data-toggle="tooltip" data-placement="top" data-original-title="Amazed">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/icon-chat9.png" alt="icon" data-toggle="tooltip" data-placement="top" data-original-title="ANGER">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/icon-chat4.png" alt="icon" data-toggle="tooltip" data-placement="top" data-original-title="joy">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/icon-chat6.png" alt="icon" data-toggle="tooltip" data-placement="top" data-original-title="BAD">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/icon-chat26.png" alt="icon" data-toggle="tooltip" data-placement="top" data-original-title="LIKE">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/icon-chat27.png" alt="icon" data-toggle="tooltip" data-placement="top" data-original-title="COOL">-->
+								<!--</a>-->
+							<!--</li>-->
+						<!--</ul> -->
+
+					</div>
+				</article>
+
+
+				<!-- ... end Single Post -->
+
+
+				<!-- Comments -->
+
+				<ul class="comments-list">
+					{% for comment in comments %}
+					<li class="comment-item">
+						<div class="post__author author vcard inline-items">
+							<img src="/static/img/user-male-circle-filled.png" alt="author">
+
+							<div class="author-date">
+								<a class="h6 post__author-name fn" href="#">{{comment.user.first_name}} {{comment.user.last_name}}</a>
+								<div class="post__date">
+									<time class="published" datetime="2017-03-24T18:18">
+										5 mins ago
+									</time>
+								</div>
+							</div>
+
+							<a href="#" class="more">
+								<svg class="olymp-three-dots-icon">
+									<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
+								</svg>
+							</a>
+
+						</div>
+
+						<p>{{ comment.message }}</p>
+
+						<div class="post-thumb">
+							{% if comment.image %}
+								<img src="{{ comment.image.url }}" alt="comment_image">
+							{% endif %}
+						</div>
+
+						<a href="#" class="post-add-icon inline-items">
+							<svg class="olymp-heart-icon">
+								<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-heart-icon"></use>
+							</svg>
+							<span>{{ comment.likes }}</span>
+						</a>
+						 <!--<a href="#" class="reply">Reply</a> -->
+					</li>
+
+					{% endfor %}
+
+				</ul>
+
+				<!-- ... end Comments -->
+
+				 <!--<a href="#" class="more-comments">View more comments <span>+</span></a> -->
+
+
+				<!-- Comment Form  -->
+
+				{% if user.is_authenticated %}
+
+				<form class="comment-form inline-items" action="/food/{{ food.slug }}/add_comment" enctype="multipart/form-data" method="POST">
+					{% csrf_token %}
+
+					<div class="post__author author vcard inline-items">
+						<img src="/static/img/user-male-circle-filled.png" alt="author">
+
+						<div class="form-group with-icon-right ">
+							<textarea class="form-control" name="message" placeholder="" required="required"></textarea>
+							<div class="add-options-message">
+								<a href="javascript:;" class="options-message" data-toggle="modal" data-target="#update-header-photo">
+									<svg class="olymp-camera-icon">
+										<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use>
+									</svg>
+								</a>
+								<input type="file" style="width: 50px;" name="image" class="image_link">
+
+							</div>
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-md-2 btn-primary">Post Comment</button>
+
+
+				</form>
+
+				{% else %}
+					<p style="text-align: center;"><a href="/sign_in">Sign In</a> to add your comment</p>
+				{% endif %}
+
+
+
+		</div>
+	</div>
+
+			<div class="col col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+			<aside class="blog-post-wrap">
+				<div class="crumina-module crumina-heading with-title-decoration">
+					<h5 class="heading-title">Featured Foods</h5>
+				</div>
+
+				<%= for feat_food <- @featured_foods do %>
+
+				<div class="ui-block">
+
+
+					<!-- Post -->
+
+					<article class="hentry blog-post blog-post-v3 featured-post-item">
+
+						<div class="post-thumb">
+							<a href="/food/<%=feat_food.id %>"><img src="<%= Fudbyte.ImageUploader.url({feat_food.image, feat_food}) %>" alt="photo"></a>
+							<a href="#" class="post-category bg-purple"><%= feat_food.restaurant.name %></a>
+						</div>
+
+						<div class="post-content">
+
+							<div class="author-date">
+								by
+								<a class="h6 post__author-name fn" href="#"><%= feat_food.restaurant.name %></a>
+								<div class="post__date">
+									<time class="published" datetime="2017-03-24T18:18">
+										<%# - 5 MONTHS ago %>
+									</time>
+								</div>
+							</div>
+
+							<a href="#" class="h4 post-title"><%= feat_food.name %></a>
+
+							<div class="post-additional-info inline-items">
+
+								<ul class="friends-harmonic">
+									<li>
+										<a href="#">
+											<img src="/img/icon-chat26.png" alt="icon">
+										</a>
+									</li>
+									<%# <li>
+										<a href="#">
+											<img src="/img/icon-chat27.png" alt="icon">
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<img src="/img/icon-chat2.png" alt="icon">
+										</a>
+									</li> %>
+								</ul>
+								<div class="names-people-likes">
+									<%= feat_food.likes %>
+								</div>
+
+								<div class="comments-shared">
+									<a href="#" class="post-add-icon inline-items">
+										<svg class="olymp-speech-balloon-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
+										<span><%= length feat_food.comments %></span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+
+					</article>
+
+					<!-- ... end Post -->
+
+				</div>
+
+				<% end %>
+
+			</aside>
+		</div>
+</div>
+{% endblock %}

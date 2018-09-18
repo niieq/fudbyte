@@ -275,7 +275,7 @@
           <article class="hentry blog-post">
 
             <div class="post-thumb">
-               <a href="/food/{{food.slug}}"><img src="food.image" alt="photo"></a>
+               <a href="/food/{{food.slug}}"><img src="{{ food.image.url }}" alt="photo"></a>
             </div>
 
             <div class="post-content">
@@ -315,7 +315,7 @@
                 <div class="comments-shared">
                   <a href="#" class="post-add-icon inline-items">
                     <svg class="olymp-speech-balloon-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
-                    <span>1</span>
+                    <span>{{ food.comments|length }}</span>
                   </a>
                 </div>
 
