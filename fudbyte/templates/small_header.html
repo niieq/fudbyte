@@ -30,41 +30,131 @@
 
   <!-- Header-BP-logout -->
 
-  <header class="header header--logout" id="site-header">
-    <a href="/" class="logo">
-      <div class="img-wrap">
-        <img src="/static/img/logo.png" alt="Olympus">
-      </div>
-    </a>
+  <!-- Fixed Sidebar Left -->
+
+<div class="fixed-sidebar">
+	<div class="fixed-sidebar-left sidebar--small" style="box-shadow: 0 0 0 0;" id="sidebar-left">
+
+		<a href="" class="logo">
+			<div class="img-wrap">
+				<img src="/static/img/logo.png" alt="Olympus">
+			</div>
+		</a>
+
+		<!--<div class="mCustomScrollbar" data-mcs-theme="dark">-->
+			<!--<ul class="left-menu">-->
+				<!--<li>-->
+					<!--<a href="#" class="js-sidebar-open">-->
+						<!--<svg class="olymp-menu-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="OPEN MENU">-->
+                            <!--<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>-->
+					<!--</a>-->
+				<!--</li>-->
+
+			<!--</ul>-->
+		<!--</div>-->
+	</div>
+
+	<!--<div class="fixed-sidebar-left sidebar--large" id="sidebar-left-1">-->
+		<!--<a href="" class="logo">-->
+			<!--<div class="img-wrap">-->
+				<!--<img src="/static/img/logo.png" alt="fudbyte">-->
+			<!--</div>-->
+			<!--<div class="title-block">-->
+				<!--<h6 class="logo-title">fudbyte!</h6>-->
+			<!--</div>-->
+		<!--</a>-->
+
+		<!--<div class="mCustomScrollbar" data-mcs-theme="dark">-->
+			<!--<ul class="left-menu">-->
+				<!--<li>-->
+					<!--<a href="#" class="js-sidebar-open">-->
+						<!--<svg class="olymp-close-icon left-menu-icon">-->
+                            <!--<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>-->
+						<!--<span class="left-menu-title">Collapse Menu</span>-->
+					<!--</a>-->
+				<!--</li>-->
+            <!--</ul>-->
+		<!--</div>-->
+	<!--</div>-->
+</div>
+
+<!-- ... end Fixed Sidebar Left -->
+
+  <header class="header" id="site-header">
 
     <div class="page-title">
       <h6>{{ page_title }}</h6>
     </div>
 
-    <!-- <div class="header-content-wrapper">
-      <form class="search-bar w-search notification-list friend-requests">
-        <div class="form-group with-button">
-          <input class="form-control js-user-search" placeholder="Search here people or pages..." type="text">
-          <button>
-            <svg class="olymp-magnifying-glass-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon"></use></svg>
-          </button>
+    <div class="header-content-wrapper">
+      <!--<form class="search-bar w-search notification-list friend-requests">-->
+        <!--&lt;!&ndash;<div class="form-group with-button">&ndash;&gt;-->
+          <!--&lt;!&ndash;<input class="form-control js-user-search" placeholder="Search here people or pages..." type="text">&ndash;&gt;-->
+          <!--&lt;!&ndash;<button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<svg class="olymp-magnifying-glass-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon"></use></svg>&ndash;&gt;-->
+          <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</form>-->
+
+
+      {% if user.is_authenticated %}
+
+        <div class="control-block">
+
+
+            <div class="author-page author vcard inline-items more">
+				<div class="author-thumb">
+					<img alt="author" src="/static/img/author-page.jpg" class="avatar">
+					<!--<span class="icon-status online"></span>-->
+					<div class="more-dropdown more-with-triangle">
+						<div class="mCustomScrollbar" data-mcs-theme="dark">
+							<div class="ui-block-title ui-block-title-small">
+								<h6 class="title">Your Account</h6>
+							</div>
+
+							<ul class="account-settings">
+								<li>
+									<a href="">
+
+										<svg class="olymp-menu-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
+
+										<span>Profile Settings</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<svg class="olymp-star-icon left-menu-icon"  data-toggle="tooltip" data-placement="right" data-original-title="REST PAGE">
+                                            <use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
+
+										<span>Create Restaurant Page</span>
+									</a>
+								</li>
+								<li>
+									<a href="/account/logout">
+										<svg class="olymp-logout-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-logout-icon"></use></svg>
+
+										<span>Log Out</span>
+									</a>
+								</li>
+							</ul>
+
+						</div>
+
+					</div>
+				</div>
+				<a href="#" class="author-name fn">
+					<div class="author-title">
+						{{ user.get_full_name }} <svg class="olymp-dropdown-arrow-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
+					</div>
+					<!--<span class="author-subtitle">SPACE COWBOY</span>-->
+				</a>
+			</div>
         </div>
-      </form>
 
-      <div class="form--login-logout">
-        <form class="form-inline">
-          <div class="form-group">
-            <input class="form-control form-control-sm" type="text" placeholder="Username" value="" required>
-          </div>
-          <div class="form-group">
-            <input class="form-control form-control-sm" type="password" placeholder="Password" value="" required>
-          </div>
-          <button class="btn btn-primary btn-md-2">Login</button>
-        </form>
-        <a href="#" class="btn btn-primary btn-md-2 login-btn-responsive" data-toggle="modal" data-target="#registration-login-form-popup">Login</a>
-      </div>
-    </div> -->
+      {% else %}
 
+      {% endif %}
+    </div>
   </header>
 
   <!-- ... end Header-BP-logout -->

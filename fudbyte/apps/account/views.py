@@ -3,16 +3,16 @@ from django.contrib.auth import (authenticate, login as django_login,
                                  logout as django_logout)
 from django.shortcuts import render, redirect
 from account.models import User
-# from ticket.utils.tasks import send_signup_email, send_forget_password_link
 from fudbyte.utils.models import get_object_or_none
 from .forms import RegistrationForm, RecoverPasswordForm
 
 
 def register(request):
+    form = RegistrationForm()
     if request.method == "POST":
         next_page = request.GET.get('next', None)
         form = RegistrationForm(request.POST)
-        error_return_url = '/?action=register{}'.format('&next='+next_page if next_page else '')
+        error_return_url = '/register{}'.format('&next='+next_page if next_page else '')
         if form.is_valid():
             fdata = form.cleaned_data
             if User.objects.filter(email=form.cleaned_data['email']).exists():
@@ -24,11 +24,7 @@ def register(request):
             if next_page:
                 return redirect(next_page)
             return redirect('/accouns/login')
-        else:
-            print(form.errors)
-            messages.add_message(request, messages.ERROR,
-                                 message='An error occurred. Fill in the right details and try again')
-            return redirect(error_return_url)
+    return render(request, 'account/register.html', {'form': form})
 
 
 def login(request):
