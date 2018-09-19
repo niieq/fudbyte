@@ -11,6 +11,7 @@ class RegistrationForm(forms.Form):
                             widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'}))
     password = forms.CharField(label='Password',
                                widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    gender = forms.ChoiceField(label='Gender', widget=forms.Select(), choices=(('Male', 'Male'), ('Female', 'Female')))
 
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)

@@ -76,5 +76,5 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.get_full_name() if self.get_full_name() else self.email.split('@')[0]
 
     @classmethod
-    def create_user(cls, first_name, last_name, email, phone, password):
-        cls.objects.create_user(email, password, first_name=first_name, last_name=last_name, phone=phone)
+    def create_user(cls, first_name, last_name, email, password, gender):
+        cls.objects.create_user(email, password, first_name=first_name, last_name=last_name, gender=gender)

@@ -1,0 +1,64 @@
+{% extends 'small_header.html' %}
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="row justify-content-md-center">
+		<div class="row">
+			<div class="col col-12 col-xl-5 col-lg-5 col-md-5 col-sm-12">
+				<div class="form-group label-floating is-empty">
+                    <input type="text" name="first_name" class="form-control" required="true"/>
+                    <label class="control-label">First Name</label>
+				</div>
+			</div>
+			<div class="col col-12 col-xl-5 col-lg-5 col-md-5 col-sm-12">
+				<div class="form-group label-floating is-empty">
+					<input type="text" name="last_name" class="form-control" required="true"/>
+                    <label class="control-label">Last Name</label>
+				</div>
+			</div>
+			<div class="col col-12 col-xl-10 col-lg-10 col-md-12 col-sm-12">
+				<div class="form-group label-floating is-empty">
+					 <input type="email" name="email" class="form-control" required="true"/>
+                <label class="control-label">Email</label>
+				</div>
+				<div class="form-group label-floating is-empty">
+					<input type="password" name="password" class="form-control" required="true"/>
+                    <label class="control-label">Password</label>
+				</div>
+
+				<!-- <div class="form-group date-time-picker label-floating">
+					<label class="control-label">Your Birthday</label>
+					<input name="datetimepicker" value="10/24/1984" />
+					<span class="input-group-addon">
+						<svg class="olymp-calendar-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-calendar-icon"></use></svg>
+					</span>
+				</div>
+ -->
+				<div class="form-group label-floating is-select">
+					<label class="control-label">Your Gender</label>
+                    <select name="gender" id="" class="selectpicker form-control">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+				</div>
+
+				<!--<div class="remember">-->
+					<!--<div class="checkbox">-->
+						<!--<label>-->
+							<!--<input name="optionsCheckboxes" type="checkbox">-->
+							<!--I accept the <a href="#">Terms and Conditions</a> of the website-->
+						<!--</label>-->
+					<!--</div>-->
+				<!--</div>-->
+
+				<button type="submit" class="btn btn-purple btn-lg full-width">Complete Registration!</button>
+
+                <p class="text-center">Have an account? <a href="/accounts/login">Login!</a></p>
+
+                <p class="text-center"><a href="/">Back To Menu</a></p>
+
+			</div>
+		</div>
+     </div>
+</form>
+{% endblock  %}

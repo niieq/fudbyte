@@ -18,13 +18,13 @@ def register(request):
             if User.objects.filter(email=form.cleaned_data['email']).exists():
                 messages.add_message(request, messages.ERROR, message='This Email Address is already in use')
                 return redirect(error_return_url)
-            User.create_user(fdata['first_name'], fdata['last_name'], fdata['email'], fdata[
-                'phone'], fdata['password'])
+            User.create_user(fdata['first_name'], fdata['last_name'], fdata['email'], fdata['password'], fdata['gender'])
             messages.add_message(request, messages.SUCCESS, message='Account Registration Successful.')
             if next_page:
                 return redirect(next_page)
-            return redirect('/accouns/login')
-    return render(request, 'account/register.html', {'form': form})
+            return redirect('/accounts/login')
+    return render(request, 'account/register.html', {'form': form,
+                                                     'page_title': 'Sign Up'})
 
 
 def login(request):
@@ -41,7 +41,8 @@ def login(request):
                 return redirect('/')
         else:
             messages.add_message(request, messages.ERROR, message='Wrong email or password')
-            return redirect('/?action=login')
+            return redirect('/accounts/login')
+    return render(request, 'account/login.html', {'page_title': 'Sign In'})
 
 #
 # def recover_password_request(request):
