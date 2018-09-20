@@ -50,7 +50,7 @@
             </a>
 
             <a href="#" class="open-responsive-menu js-open-responsive-menu">
-              <svg class="olymp-menu-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
+              <svg class="olymp-menu-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
             </a>
 
             <div class="nav nav-pills nav1 header-menu">
@@ -59,30 +59,31 @@
                   <li class="nav-item">
                     <a href="/" class="nav-link">Home</a>
                   </li>
-
+                   {% if user.is_authenticated %}
                   <li class="nav-item">
-                    <a href="#" class="nav-link">Terms & Conditions</a>
+                    <a href="#" class="nav-link">Profile</a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">Events</a>
+                    <a href="/accounts/logout" class="nav-link">Logout</a>
                   </li>
+                   {% else %}
                   <li class="nav-item">
-                    <a href="#" class="nav-link">Privacy Policy</a>
+                    <a href="/accounts/login" class="nav-link">Sign In</a>
                   </li>
+                     <li class="nav-item">
+                    <a href="/accounts/register" class="nav-link">Sign Up</a>
+                  </li>
+                   {% endif %}
                   <li class="close-responsive-menu js-close-responsive-menu">
-                    <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
+                    <svg class="olymp-close-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
                   </li>
                   <li class="nav-item js-expanded-menu">
                     <a href="#" class="nav-link">
-                      <svg class="olymp-menu-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
-                      <svg class="olymp-close-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
+                      <svg class="olymp-menu-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
+                      <svg class="olymp-close-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
                     </a>
                   </li>
-                  <li>
 
-                        <a href="/sign_out">Sign Out</a>
-
-                  </li>
                    <!--<li class="shoping-cart more">-->
                     <!--<a href="#" class="nav-link">-->
                       <!--<svg class="olymp-shopping-bag-icon"><use xlink:href="/svg-icons/sprites/icons.svg#olymp-shopping-bag-icon"></use></svg>-->

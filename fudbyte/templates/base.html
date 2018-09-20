@@ -1,24 +1,28 @@
-<!doctype html>
-{% load compress %}
-
-{% comment %} paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ {% endcomment %}
-<!--[if lt IE 7]> <html class="lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="lt-ie10 lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="lt-ie10 lt-ie9" lang="en"> <![endif]-->
-<!--[if IE 9]>    <html class="lt-ie10" lang="en"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <title>Fudbyte!</title>
-    <link rel="stylesheet" href="/static/css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" href="/static/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="stylesheet" href="/static/css/fonts.css">
+     {% if page_title %}
+        <title>{{ page_title}} - Fudbyte!</title>
+     {% else %}
+        <title>Fudbyte!</title>
+     {% endif %}
 
-       <!-- Main Font -->
+     {% block meta_tags %}{% endblock %}
+     <link rel="stylesheet" href="/static/css/bootstrap-reboot.css">
+     <link rel="stylesheet" href="/static/css/bootstrap.css">
+     <link rel="stylesheet" href="/static/css/bootstrap-grid.css">
+     <link rel="stylesheet" href="/static/css/main.css">
+     <link rel="stylesheet" href="/static/css/fonts.css">
+
+
+
+    <!-- Main Font -->
   <script src="/static/js/webfontloader.min.js"></script>
   <script>
     WebFont.load({
@@ -28,32 +32,250 @@
     });
   </script>
 
+  </head>
 
-    {% compress css %}
-        {% comment %} Core CSS includes (for inclusion on all pages) {% endcomment %}
+  <body class="body-bg-white">
 
-    {% endcompress %}
+  <!-- Header-BP-logout -->
 
-    {% compress css %}
-        {% comment %}
-            Per-page CSS is compressed separately so that the global stuff doesn't get re-downloaded each time 
-        {% endcomment %}
-        {% block extra_css %}{% endblock %}
-    {% endcompress %}
+  <!-- Fixed Sidebar Left -->
 
-</head>
-<body class="body-bg-white">
+<div class="fixed-sidebar">
+	<div class="fixed-sidebar-left sidebar--small" style="box-shadow: 0 0 0 0;" id="sidebar-left">
 
-    <header class="header header--logout" id="site-header">
-    <a href="/" class="logo">
-      <div class="img-wrap">
-        <img src="/static/img/logo.png" alt="Olympus">
-      </div>
-    </a>
-    {% block content %}{% endblock %}
+		<a href="" class="logo">
+			<div class="img-wrap">
+				<img src="/static/img/logo.png" alt="Olympus">
+			</div>
+		</a>
+
+		<!--<div class="mCustomScrollbar" data-mcs-theme="dark">-->
+			<!--<ul class="left-menu">-->
+				<!--<li>-->
+					<!--<a href="#" class="js-sidebar-open">-->
+						<!--<svg class="olymp-menu-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="OPEN MENU">-->
+                            <!--<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>-->
+					<!--</a>-->
+				<!--</li>-->
+
+			<!--</ul>-->
+		<!--</div>-->
+	</div>
+
+	<!--<div class="fixed-sidebar-left sidebar--large" id="sidebar-left-1">-->
+		<!--<a href="" class="logo">-->
+			<!--<div class="img-wrap">-->
+				<!--<img src="/static/img/logo.png" alt="fudbyte">-->
+			<!--</div>-->
+			<!--<div class="title-block">-->
+				<!--<h6 class="logo-title">fudbyte!</h6>-->
+			<!--</div>-->
+		<!--</a>-->
+
+		<!--<div class="mCustomScrollbar" data-mcs-theme="dark">-->
+			<!--<ul class="left-menu">-->
+				<!--<li>-->
+					<!--<a href="#" class="js-sidebar-open">-->
+						<!--<svg class="olymp-close-icon left-menu-icon">-->
+                            <!--<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>-->
+						<!--<span class="left-menu-title">Collapse Menu</span>-->
+					<!--</a>-->
+				<!--</li>-->
+            <!--</ul>-->
+		<!--</div>-->
+	<!--</div>-->
+</div>
+
+  <div class="fixed-sidebar fixed-sidebar-responsive">
+
+	<div class="fixed-sidebar-left sidebar--small" id="sidebar-left-responsive">
+		<a href="#" class="logo js-sidebar-open">
+			<img src="/static/img/logo.png" alt="fudbyte">
+		</a>
+
+	</div>
+
+	<div class="fixed-sidebar-left sidebar--large" id="sidebar-left-1-responsive">
+		<a href="#" class="logo">
+			<div class="img-wrap">
+				<img src="/static/img/logo.png" alt="fudbyte">
+			</div>
+			<div class="title-block">
+				<h6 class="logo-title">fudbyte</h6>
+			</div>
+		</a>
+
+		<div class="mCustomScrollbar" data-mcs-theme="dark">
+
+            {% if user.is_authenticated %}
+
+			<div class="control-block">
+				<div class="author-page author vcard inline-items">
+					<div class="author-thumb">
+						<img alt="author" src="img/author-page.jpg" class="avatar">
+						<span class="icon-status online"></span>
+					</div>
+					<a href="" class="author-name fn">
+						<div class="author-title">
+							{{ user.full_name }} <svg class="olymp-dropdown-arrow-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
+						</div>
+					</a>
+				</div>
+			</div>
 
 
-         <script src="/static/js/jquery-3.2.1.js"></script>
+
+			<ul class="left-menu">
+				<li>
+					<a href="#" class="js-sidebar-open">
+						<svg class="olymp-close-icon left-menu-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
+						<span class="left-menu-title">Collapse Menu</span>
+					</a>
+				</li>
+			</ul>
+
+			<div class="ui-block-title ui-block-title-small">
+				<h6 class="title">YOUR ACCOUNT</h6>
+			</div>
+
+			<ul class="account-settings">
+				<li>
+					<a href="#">
+
+						<svg class="olymp-menu-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
+
+						<span>Profile Settings</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<svg class="olymp-star-icon left-menu-icon"  data-toggle="tooltip" data-placement="right"   data-original-title="FAV PAGE"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
+
+						<span>Create Restaurant Page</span>
+					</a>
+				</li>
+				<li>
+					<a href="/accounts/logout">
+						<svg class="olymp-logout-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-logout-icon"></use></svg>
+
+						<span>Log Out</span>
+					</a>
+				</li>
+			</ul>
+            {% endif %}
+		</div>
+	</div>
+</div>
+
+<!-- ... end Fixed Sidebar Left -->
+
+  <header class="header" id="site-header">
+
+    <div class="page-title">
+      <h6>{{ page_title }}</h6>
+    </div>
+
+    <div class="header-content-wrapper">
+      <!--<form class="search-bar w-search notification-list friend-requests">-->
+        <!--&lt;!&ndash;<div class="form-group with-button">&ndash;&gt;-->
+          <!--&lt;!&ndash;<input class="form-control js-user-search" placeholder="Search here people or pages..." type="text">&ndash;&gt;-->
+          <!--&lt;!&ndash;<button>&ndash;&gt;-->
+            <!--&lt;!&ndash;<svg class="olymp-magnifying-glass-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon"></use></svg>&ndash;&gt;-->
+          <!--&lt;!&ndash;</button>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--</form>-->
+
+
+
+        <div class="control-block">
+
+
+            <div class="author-page author vcard inline-items more">
+               {% if user.is_authenticated %}
+
+				<div class="author-thumb">
+					<img alt="author" src="/static/img/author-page.jpg" class="avatar">
+					<!--<span class="icon-status online"></span>-->
+					<div class="more-dropdown more-with-triangle">
+						<div class="mCustomScrollbar" data-mcs-theme="dark">
+							<div class="ui-block-title ui-block-title-small">
+								<h6 class="title">Your Account</h6>
+							</div>
+
+							<ul class="account-settings">
+								<li>
+									<a href="">
+
+										<svg class="olymp-menu-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-menu-icon"></use></svg>
+
+										<span>Profile Settings</span>
+									</a>
+								</li>
+								<li>
+									<a href="">
+										<svg class="olymp-star-icon left-menu-icon"  data-toggle="tooltip" data-placement="right" data-original-title="REST PAGE">
+                                            <use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
+
+										<span>Create Restaurant Page</span>
+									</a>
+								</li>
+								<li>
+									<a href="/accounts/logout">
+										<svg class="olymp-logout-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-logout-icon"></use></svg>
+
+										<span>Log Out</span>
+									</a>
+								</li>
+							</ul>
+
+						</div>
+
+					</div>
+				</div>
+				<a href="#" class="author-name fn">
+					<div class="author-title">
+						{{ user.get_full_name }} <svg class="olymp-dropdown-arrow-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-dropdown-arrow-icon"></use></svg>
+					</div>
+					<!--<span class="author-subtitle">SPACE COWBOY</span>-->
+				</a>
+                {% else %}
+
+                    <a href="/accounts/login">Sign In</a> / <a href="/accounts/register">Sign Up</a>
+
+              {% endif %}
+			</div>
+        </div>
+    </div>
+  </header>
+
+  <header class="header header-responsive" id="site-header-responsive">
+
+	<div class="header-content-wrapper">
+		<ul class="nav nav-tabs mobile-app-tabs" role="tablist">
+
+		</ul>
+	</div>
+
+	<!-- Tab panes -->
+	<div class="tab-content tab-content-responsive">
+
+
+	</div>
+	<!-- ... end  Tab panes -->
+
+</header>
+
+  <!-- ... end Header-BP-logout -->
+  <div class="header-spacer"></div>
+
+
+
+
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+
+ <script src="/static/js/jquery-3.2.1.js"></script>
   <script src="/static/js/jquery.appear.js"></script>
   <script src="/static/js/jquery.mousewheel.js"></script>
   <script src="/static/js/perfect-scrollbar.js"></script>
@@ -91,5 +313,7 @@
   <script defer src="/static/fonts/fontawesome-all.js"></script>
   <script src="/static/js/bootstrap.bundle.js"></script>
 
-</body>
+
+
+  </body>
 </html>

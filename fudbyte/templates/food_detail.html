@@ -1,4 +1,16 @@
-{% extends 'small_header.html' %}
+{% extends 'base.html' %}
+{% block meta_tags %}
+<meta property="og:title" content="{{ food.name }}">
+<meta property="og:type" content="article" />
+<meta property="og:description" content="{{ food.description }}">
+<meta property="og:image" content="fudbyte.com/{{ food.image.url }}">
+<meta property="og:url" content="fudbyte.com/food/{{ food.slug }}">
+
+<meta name="twitter:title" content="{{ food.name }}">
+<meta name="twitter:description" content="{{ food.description }}">
+<meta name="twitter:image" content="fudbyte.com/{{ food.image.url }}">
+<meta name="twitter:card" content="summary_large_image">
+{% endblock %}
 {% block content %}
 <div class="row mt50">
 	<div class="col col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
