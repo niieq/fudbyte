@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'compressor',
+    'djcelery',
     # 'debug_toolbar',
 
     # Uncomment the next line to enable admin documentation:
@@ -212,3 +213,12 @@ LOGGING = {
 }
 
 AUTH_USER_MODEL = 'account.User'
+
+BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+CELERY_TIMEZONE = 'Africa/Accra'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERYBEAT_SCHEDULE = {
+
+}

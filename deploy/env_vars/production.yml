@@ -7,7 +7,7 @@ git_branch: master
 # Database settings.
 db_user: "{{ application_name }}"
 db_name: "{{ application_name }}"
-db_password: a$ider$c3ntr@l
+db_password: byteOffood
 
 
 # Gunicorn settings. For the number of workers, a good rule to follow is
@@ -27,12 +27,12 @@ django_secret_key: "z7uf-%fvf5ipid%$$hgsn!f&x=3vk-7#*c%bluzn$gx8igsi%t"
 # RabbitMQ settings.
 rabbitmq_server_name: "{{ inventory_hostname }}"
 
-rabbitmq_admin_user: ticket
-rabbitmq_admin_password: a$ider$c3ntr@l
+rabbitmq_admin_user: fudbyte
+rabbitmq_admin_password: byteOffood
 
 rabbitmq_application_vhost: "{{ application_name }}"
 rabbitmq_application_user: "{{ application_name }}"
-rabbitmq_application_password: a$ider$c3ntr@l
+rabbitmq_application_password: byteOffood
 
 
 # Celery settings.

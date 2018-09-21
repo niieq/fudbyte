@@ -32,18 +32,18 @@ def generate_another_slug(slug, cycle):
 class Restaurant(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     restaurant_crawl_link = models.CharField(max_length=255, blank=True, null=True)
-    inserted_at = models.DateTimeField()
-    address = models.CharField(max_length=255, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
+    logo = models.ImageField(upload_to='restaurants', blank=True, null=True)
+    cover_photo = models.ImageField(upload_to='restaurants', blank=True, null=True)
     slug = models.CharField(max_length=255, blank=True, null=True, unique=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-
-    class Meta:
-        managed = True
-        db_table = 'restaurants'
+    user_created = models.ForeignKey(User, blank=True, null=True)
+    latitude = models.CharField(max_length=255, blank=True, null=True)
+    longitude = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -76,18 +76,13 @@ class Food(models.Model):
     price = models.CharField(max_length=255, blank=True, null=True)
     views = models.IntegerField(blank=True, null=True)
     restaurant = models.ForeignKey('Restaurant', models.DO_NOTHING, blank=True, null=True)
-    inserted_at = models.DateTimeField()
     image = models.ImageField(blank=True, null=True, upload_to='food_images')
     likes = models.IntegerField(blank=True, null=True, default=0)
-    is_featured = models.BooleanField()
+    is_featured = models.BooleanField(default=False)
     slug = models.CharField(max_length=255, blank=True, null=True, unique=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-
-    class Meta:
-        managed = True
-        db_table = 'foods'
 
     def __str__(self):
         return self.name

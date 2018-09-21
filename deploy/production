@@ -2,7 +2,7 @@
 env=production
 
 [webservers]
-kromevents.com ansible_ssh_user=root ansible_ssh_pass=asiders2017
+fudbyte.com ansible_ssh_user=root
 
 [dbservers]
-kromevents.com ansible_ssh_user=root ansible_ssh_pass=asiders2017
+fudbyte.com ansible_ssh_user=root
