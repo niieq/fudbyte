@@ -126,9 +126,10 @@ def assign_kfc_related_images():
     for food in foods:
         other_foods = Food.objects.filter(name=food.name).exclude(restaurant__name='KFC (Tema Community 11)')
         for other_food in other_foods:
-            new_image = ContentFile(food.image.read())
-            new_image.name = food.image.name
-            other_food.image = new_image
-            other_food.save()
+            if food.image:
+                new_image = ContentFile(food.image.read())
+                new_image.name = food.image.name
+                other_food.image = new_image
+                other_food.save()
 
 
