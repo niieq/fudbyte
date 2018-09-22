@@ -41,8 +41,8 @@ def get_restaurants_and_food_data():
                     print("Error trying to save model: saving image failed: ")
                     pass
             if restaurant['cms_content']['vendor_wide_logo']:
-                img = download_image(restaurant['cms_content']['vendor_wide_logo'])
                 try:
+                    img = download_image(restaurant['cms_content']['vendor_wide_logo'])
                     filename = '{}_cover.{}'.format(restaurant['name'].replace(' ', '_'), img.format)
                     rest_obj.cover_photo = filename
                     tempfile = img
