@@ -23,13 +23,13 @@
   when: run_django_db_migrations is defined and run_django_db_migrations
   tags: django.migrate
 
-- name: npm install
-  npm: path={{ project_path }}
-
-- name: bower install
-  shell: bower install --allow-root
-  args:
-     chdir: "{{ project_path }}"
+#- name: npm install
+#  npm: path={{ project_path }}
+#
+#- name: bower install
+#  shell: bower install --allow-root
+#  args:
+#     chdir: "{{ project_path }}"
 
 - name: Run Django collectstatic
   django_manage:

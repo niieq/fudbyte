@@ -3,9 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from restaurant.forms import CommentForm
 from restaurant.models import Restaurant, Food, Comment
-from fudbyte.utils.slugify_existing import run_sluggy
 from fudbyte.utils.models import get_object_or_none
-from fudbyte.utils.tasks import get_restaurants_and_food_data
 
 
 def index(request):
