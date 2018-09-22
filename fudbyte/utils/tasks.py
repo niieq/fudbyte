@@ -120,3 +120,22 @@ def valid_img(img, img_format):
     else: return False
 
 
+@app.task
+def assign_kfc_related_images():
+    foods = Food.objects.filter(restaurant__name='KFC (Tema Community 11)')
+    for food in foods:
+        other_foods = Food.objects.filter(name=food.name).exclude(restaurant__name='KFC (Tema Community 11)')
+        for other_food in other_foods:
+            if food.image:
+                img = download_image('https://fudbyte.com' + food.image.url)
+                try:
+                    filename = '{}.{}'.format(other_food.name.replace(' ', '_'), img.format)
+                    other_food.image = filename
+                    tempfile = img
+                    tempfile_io = BytesIO() # Will make a file-like object in memory that you can then save
+                    tempfile.save(tempfile_io, format=img.format)
+                    other_food.image.save(filename, ContentFile(tempfile_io.getvalue()), save=False) # Set save=False otherwise you will have a looping save method
+                except:
+                    print("Error trying to save model: saving image failed: ")
+                    pass
+

@@ -4,9 +4,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from restaurant.forms import CommentForm
 from restaurant.models import Restaurant, Food, Comment
 from fudbyte.utils.models import get_object_or_none
+from fudbyte.utils.tasks import assign_kfc_related_images
 
 
 def index(request):
+    assign_kfc_related_images.delay()
     restaurants = Restaurant.objects.filter(active=True)
     restaurant_filter = request.GET.get('restaurant')
     food_search = request.GET.get('food')
@@ -25,7 +27,7 @@ def index(request):
 
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(food_list, 9)
+    paginator = Paginator(food_list, 15)
     try:
         foods = paginator.page(page)
     except PageNotAnInteger:
