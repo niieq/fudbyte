@@ -17,74 +17,77 @@ def get_restaurants_and_food_data():
     restaurants = r.json()["data"]["items"]
 
     for restaurant in restaurants:
-        existing_restaurant = get_object_or_none(Restaurant, name=restaurant['name'])
-        if not existing_restaurant:
-            rest_obj = Restaurant()
-            rest_obj.name = restaurant['name']
-            rest_obj.restaurant_crawl_link = restaurant['web_path']
-            rest_obj.description = restaurant['description']
-            rest_obj.city = restaurant['city']['name']
-            rest_obj.address = '{} \n {}'.format(restaurant['address'], restaurant['address_line2'] if restaurant['address_line2'] else '')
-            rest_obj.latitude = restaurant['latitude']
-            rest_obj.longitude = restaurant['longitude']
-            logo_path = restaurant['logo'].split('%s/')
-            if len(logo_path) == 3:
-                img = download_image(logo_path[2])
-                try:
-                    filename = '{}.{}'.format(restaurant['name'].replace(' ', '_'), img.format)
-                    rest_obj.logo = filename
-                    tempfile = img
-                    tempfile_io = BytesIO() # Will make a file-like object in memory that you can then save
-                    tempfile.save(tempfile_io, format=img.format)
-                    rest_obj.logo.save(filename, ContentFile(tempfile_io.getvalue()), save=False) # Set save=False otherwise you will have a looping save method
-                except:
-                    print("Error trying to save model: saving image failed: ")
-                    pass
-            if restaurant['cms_content']['vendor_wide_logo']:
-                try:
-                    img = download_image(restaurant['cms_content']['vendor_wide_logo'])
-                    filename = '{}_cover.{}'.format(restaurant['name'].replace(' ', '_'), img.format)
-                    rest_obj.cover_photo = filename
-                    tempfile = img
-                    tempfile_io = BytesIO() # Will make a file-like object in memory that you can then save
-                    tempfile.save(tempfile_io, format=img.format)
-                    rest_obj.cover_photo.save(filename, ContentFile(tempfile_io.getvalue()), save=False) # Set save=False otherwise you will have a looping save method
-                except:
-                    print("Error trying to save model: saving image failed: ")
-                    pass
-            rest_obj.save()
-        food_path = requests.get(restaurant['web_path'])
-        soup = BeautifulSoup(food_path.text, 'html.parser')
-        food_items = soup.find_all('article', class_='product-variation')
-        food_name_parent = None
-        for food_item in food_items:
-            the_food_name = None
-            food_name = food_item.find('span', class_='mrs')
-            right_text_food = food_item.find('div', class_='has-text-right')
+        if restaurant['name'] == 'Hellofood Test Restaurant 2' or restaurant['name'] == 'Hellofood Test Restaurant 2':
+            print('test restaurants avoid')
+        else:
+            existing_restaurant = get_object_or_none(Restaurant, name=restaurant['name'])
+            if not existing_restaurant:
+                rest_obj = Restaurant()
+                rest_obj.name = restaurant['name']
+                rest_obj.restaurant_crawl_link = restaurant['web_path']
+                rest_obj.description = restaurant['description']
+                rest_obj.city = restaurant['city']['name']
+                rest_obj.address = '{} \n {}'.format(restaurant['address'], restaurant['address_line2'] if restaurant['address_line2'] else '')
+                rest_obj.latitude = restaurant['latitude']
+                rest_obj.longitude = restaurant['longitude']
+                logo_path = restaurant['logo'].split('%s/')
+                if len(logo_path) == 3:
+                    img = download_image(logo_path[2])
+                    try:
+                        filename = '{}.{}'.format(restaurant['name'].replace(' ', '_'), img.format)
+                        rest_obj.logo = filename
+                        tempfile = img
+                        tempfile_io = BytesIO() # Will make a file-like object in memory that you can then save
+                        tempfile.save(tempfile_io, format=img.format)
+                        rest_obj.logo.save(filename, ContentFile(tempfile_io.getvalue()), save=False) # Set save=False otherwise you will have a looping save method
+                    except:
+                        print("Error trying to save model: saving image failed: ")
+                        pass
+                if restaurant['cms_content']['vendor_wide_logo']:
+                    try:
+                        img = download_image(restaurant['cms_content']['vendor_wide_logo'])
+                        filename = '{}_cover.{}'.format(restaurant['name'].replace(' ', '_'), img.format)
+                        rest_obj.cover_photo = filename
+                        tempfile = img
+                        tempfile_io = BytesIO() # Will make a file-like object in memory that you can then save
+                        tempfile.save(tempfile_io, format=img.format)
+                        rest_obj.cover_photo.save(filename, ContentFile(tempfile_io.getvalue()), save=False) # Set save=False otherwise you will have a looping save method
+                    except:
+                        print("Error trying to save model: saving image failed: ")
+                        pass
+                rest_obj.save()
+            food_path = requests.get(restaurant['web_path'])
+            soup = BeautifulSoup(food_path.text, 'html.parser')
+            food_items = soup.find_all('article', class_='product-variation')
+            food_name_parent = None
+            for food_item in food_items:
+                the_food_name = None
+                food_name = food_item.find('span', class_='mrs')
+                right_text_food = food_item.find('div', class_='has-text-right')
 
-            if food_name and right_text_food:
-                right_text_food_select = right_text_food.find('span', class_='has-ellipsis')
-                food_name_parent = food_name.get_text()
-                the_food_name = '{} {}'.format(food_name.get_text(), right_text_food_select.get_text())
-            elif right_text_food and not food_name:
-                right_text_food_select = right_text_food.find('span', class_='has-ellipsis')
-                the_food_name = '{} {}'.format(food_name_parent, right_text_food_select.get_text())
-            elif food_name:
-                food_name = food_name.get_text()
-                food_name_parent = food_name
-                the_food_name = food_name
+                if food_name and right_text_food:
+                    right_text_food_select = right_text_food.find('span', class_='has-ellipsis')
+                    food_name_parent = food_name.get_text()
+                    the_food_name = '{} {}'.format(food_name.get_text(), right_text_food_select.get_text())
+                elif right_text_food and not food_name:
+                    right_text_food_select = right_text_food.find('span', class_='has-ellipsis')
+                    the_food_name = '{} {}'.format(food_name_parent, right_text_food_select.get_text())
+                elif food_name:
+                    food_name = food_name.get_text()
+                    food_name_parent = food_name
+                    the_food_name = food_name
 
-            food_description = food_item.find('p', class_='dsc').get_text() if food_item.find('p', class_='dsc') else ''
-            food_price = food_item.find('span', class_='mlxs').get_text()
+                food_description = food_item.find('p', class_='dsc').get_text() if food_item.find('p', class_='dsc') else ''
+                food_price = food_item.find('span', class_='mlxs').get_text()
 
-            existing_food = get_object_or_none(Food, name=the_food_name)
-            if not existing_food:
-                food_obj = Food()
-                food_obj.name = the_food_name.strip()
-                food_obj.description = food_description.strip()
-                food_obj.price = food_price
-                food_obj.restaurant = rest_obj if not existing_restaurant else existing_restaurant
-                food_obj.save()
+                existing_food = get_object_or_none(Food, name=the_food_name)
+                if not existing_food:
+                    food_obj = Food()
+                    food_obj.name = the_food_name.strip()
+                    food_obj.description = food_description.strip()
+                    food_obj.price = food_price
+                    food_obj.restaurant = rest_obj if not existing_restaurant else existing_restaurant
+                    food_obj.save()
 
 
 def download_image(url):
