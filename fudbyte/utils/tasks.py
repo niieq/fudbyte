@@ -1,5 +1,6 @@
 __author__ = 'nii'
 import imghdr # Used to validate images
+from django.core.files import File
 import urllib.request # Used to download images
 from django.core.files.base import ContentFile
 from io import StringIO, BytesIO # Used to imitate reading from byte file
@@ -127,9 +128,7 @@ def assign_kfc_related_images():
         other_foods = Food.objects.filter(name=food.name).exclude(restaurant__name='KFC (Tema Community 11)')
         for other_food in other_foods:
             if food.image:
-                new_image = ContentFile(food.image.read())
-                new_image.name = new_image.name
-                other_food.image = new_image
+                other_food.image = File(food.image, food.image.name)
                 other_food.save()
 
 
