@@ -128,7 +128,7 @@ def assign_kfc_related_images():
         for other_food in other_foods:
             if food.image:
                 new_image = ContentFile(food.image.read())
-                new_image.name = food.image.name
+                new_image.name = new_image.name
                 other_food.image = new_image
                 other_food.save()
 
