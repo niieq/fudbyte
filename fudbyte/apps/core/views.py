@@ -8,7 +8,6 @@ from fudbyte.utils.tasks import assign_kfc_related_images
 
 
 def index(request):
-    assign_kfc_related_images.delay()
     restaurants = Restaurant.objects.filter(active=True)
     restaurant_filter = request.GET.get('restaurant')
     food_search = request.GET.get('food')
