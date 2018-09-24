@@ -356,9 +356,9 @@
     <div class="loading" style="display: none;">
     Loading...
   </div>
-    {% if page_obj.has_next %}
+    {% if foods.has_next %}
 
-    <a id="load-more-button" href="?page={{ foods.next_page_number }}" class="btn btn-control btn-more infinite-more-link" style="display: none;" data-load-link="search-items-to-load.html" data-container="search-items-grid">
+    <a id="load-more-button" href="?page={{ foods.next_page_number }}" class="btn btn-control btn-more infinite-more-link" data-container="search-items-grid">
         <svg class="olymp-three-dots-icon">
             <use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
         </svg>
