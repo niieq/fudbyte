@@ -364,17 +364,7 @@
         </svg>
     <div class="ripple-container"></div></a>
       {% endif %}
-    <script>
-    var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      onBeforePageLoad: function () {
-        $('.loading').show();
-      },
-      onAfterPageLoad: function ($items) {
-        $('.loading').hide();
-      }
-    });
-  </script>
+
     {% endif %}
 
   <!-- ... end Pagination -->
@@ -427,8 +417,20 @@
 	$("#btn_filter_restaurant").on('click', function(){
     	$("#filter_restaurant_form").submit();
 	});
+
+
 });
 
+
+          var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
     </script>
 
   </body>
