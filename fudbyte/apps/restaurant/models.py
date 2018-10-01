@@ -118,6 +118,7 @@ class Comment(BaseModel):
     message = models.TextField()
     image = models.ImageField(blank=True, null=True, upload_to='comment_images')
     likes = models.IntegerField(default=0)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies')
 
     def __str__(self):
         return self.message

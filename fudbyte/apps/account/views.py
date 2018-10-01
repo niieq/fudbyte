@@ -12,7 +12,7 @@ def register(request):
     if request.method == "POST":
         next_page = request.GET.get('next', None)
         form = RegistrationForm(request.POST)
-        error_return_url = '/register{}'.format('&next='+next_page if next_page else '')
+        error_return_url = '/accounts/register{}'.format('&next='+next_page if next_page else '')
         if form.is_valid():
             fdata = form.cleaned_data
             if User.objects.filter(email=form.cleaned_data['email']).exists():

@@ -25,3 +25,5 @@ urlpatterns = [
     url(r'^restaurant/', include('restaurant.urls', namespace='restaurant')),
     url(r'^accounts/', include('account.urls', namespace='account')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = 'Fudbyte Adminstration'

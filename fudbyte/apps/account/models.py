@@ -70,7 +70,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         "Returns the first_name plus the last_name, with a space in between."
         full_name = u'%s %s' % (self.first_name, self.last_name)
-        return full_name.strip()
+        return full_name.capitalize().strip()
 
     def get_short_name(self):
         return self.get_full_name() if self.get_full_name() else self.email.split('@')[0]
