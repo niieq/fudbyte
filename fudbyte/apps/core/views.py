@@ -39,7 +39,7 @@ def index(request):
 
 def food_detail(request, food_slug):
     food = get_object_or_404(Food, slug=food_slug)
-    comments = Comment.objects.filter(food=food)
+    comments = Comment.objects.filter(food=food, parent=None)
     featured = Food.objects.filter(active=True, is_featured=True).exclude(image__exact='')
     return render(request, 'food_detail.html', {'food': food,
                                                 'page_title': food.name,

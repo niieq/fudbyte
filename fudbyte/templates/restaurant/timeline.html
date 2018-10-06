@@ -112,44 +112,13 @@
 								<span>36</span>
 							</a>
 
-							<ul class="friends-harmonic">
-								<li>
-									<a href="#">
-										<img src="/static/img/friend-harmonic7.jpg" alt="friend">
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="img/friend-harmonic8.jpg" alt="friend">
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="img/friend-harmonic9.jpg" alt="friend">
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="img/friend-harmonic10.jpg" alt="friend">
-									</a>
-								</li>
-								<li>
-									<a href="#">
-										<img src="img/friend-harmonic11.jpg" alt="friend">
-									</a>
-								</li>
-							</ul>
 
-							<div class="names-people-likes">
-								<a href="#">You</a>, <a href="#">Elaine</a> and
-								<br>34 more liked this
-							</div>
 
 
 							<div class="comments-shared">
-								<a href="#" class="post-add-icon inline-items">
+								<a href="javascript:;" id="{{comment.id}}" class="post-add-icon inline-items show_comments">
 									<svg class="olymp-speech-balloon-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
-									<span>17</span>
+									<span>{{ comment.replies.all|length }}</span>
 								</a>
 
 								<a href="#" class="post-add-icon inline-items">
@@ -170,13 +139,16 @@
 
 					<!-- Comments -->
 
+                    <div class="other-comments-section" id="replies_{{comment.id}}" style="display: none;">
+
 					<ul class="comments-list">
+                        {% for reply in comment.replies.all %}
 						<li class="comment-item">
 							<div class="post__author author vcard inline-items">
-								<img src="img/avatar2-sm.jpg" alt="author">
+								<img src="/static/img/user-male-circle-filled.png" alt="author">
 
 								<div class="author-date">
-									<a class="h6 post__author-name fn" href="#">Nicholas Grissom</a>
+									<a class="h6 post__author-name fn" href="#">{{ comment.user.get_full_name}}</a>
 									<div class="post__date">
 										<time class="published" datetime="2017-03-24T18:18">
 											28 mins ago
@@ -184,54 +156,57 @@
 									</div>
 								</div>
 
-								<a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
+								<a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
 
 							</div>
 
-							<p>Dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.</p>
+							<p>{{ reply.message }}</p>
+
+                            <div class="post-thumb">
+                                {% if reply.image %}
+                                    <img src="{{ reply.image.url }}" alt="comment_image">
+                                {% endif %}
+                            </div>
 
 							<a href="#" class="post-add-icon inline-items">
 								<svg class="olymp-heart-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-heart-icon"></use></svg>
-								<span>6</span>
+								<span>{{ reply.likes }}</span>
 							</a>
-							<a href="#" class="reply">Reply</a>
 						</li>
+                        {% endfor %}
 
 					</ul>
 
-					<!-- ... end Comments -->
-
-					<a href="#" class="more-comments">View more comments <span>+</span></a>
 
 
 					<!-- Comment Form  -->
 
-					<form class="comment-form inline-items" method="POST">
-
-
+					<form class="comment-form inline-items" action="/restaurant/{{ restaurant.slug }}/{{ comment.food.slug }}/write_comment" method="POST">
+                        {% csrf_token %}
 						<div class="post__author author vcard inline-items">
-							<img src="img/author-page.jpg" alt="author">
-                            <input type="hidden" name="comment_id" value="{{ comment.id }}"/>
+							<img src="/static/img/author-page.jpg" alt="author">
+                            <input type="hidden" name="parent_id" value="{{ comment.id }}"/>
 
 							<div class="form-group with-icon-right ">
-								<textarea class="form-control" placeholder=""></textarea>
-								<div class="add-options-message">
-									<a href="#" class="options-message" data-toggle="modal" data-target="#update-header-photo">
-										<svg class="olymp-camera-icon">
-											<use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use>
-										</svg>
-									</a>
-								</div>
+								<textarea class="form-control" name="message" placeholder="" required="required"></textarea>
+                                <div class="add-options-message">
+                                    <a href="javascript:;" class="options-message" data-toggle="modal" data-target="#update-header-photo">
+                                        <svg class="olymp-camera-icon">
+                                            <use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-camera-icon"></use>
+                                        </svg>
+                                    </a>
+                                    <input type="file" style="width: 50px;" name="image" class="image_link">
+
+                                </div>
 							</div>
 						</div>
 
 						<button class="btn btn-md-2 btn-primary">Post Comment</button>
 
-						<button class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Cancel</button>
-
 					</form>
 
 					<!-- ... end Comment Form  -->
+                        </div>
 				</div>
              {% endfor %}
 
@@ -305,7 +280,7 @@
 									position: myLatLng,
 									map: map,
 									icon: {
-										url: "img/marker-google.png",
+										url: "/static/img/marker-google.png",
 										scaledSize: new google.maps.Size(50, 50)
 									}
 
@@ -359,7 +334,7 @@
 		<div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
 			<div class="ui-block">
 				<div class="ui-block-title">
-					<h6 class="title">Latest Foods</h6>
+					<h6 class="title">Featured Food</h6>
 					<a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
 				</div>
 				<div class="ui-block-content">
@@ -380,7 +355,7 @@
 
             <div class="ui-block">
 				<div class="ui-block-title">
-					<h6 class="title">Latest Promotions</h6>
+					<h6 class="title">Featured Promo</h6>
 					<a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
 				</div>
 				<div class="ui-block-content">
@@ -909,7 +884,7 @@
 
 
 <a class="back-to-top" href="#">
-	<img src="svg-icons/back-to-top.svg" alt="arrow" class="back-icon">
+	<img src="/static/svg-icons/back-to-top.svg" alt="arrow" class="back-icon">
 </a>
 
 
@@ -1122,4 +1097,12 @@
 		</div>
 	</div>
     </div>
+{% endblock %}
+{% block extra_js%}
+<script type="text/javascript">
+    $('.show_comments').on('click', function(){
+       var id = this.id;
+       $('#replies_'+id).toggle();
+    });
+</script>
 {% endblock %}
