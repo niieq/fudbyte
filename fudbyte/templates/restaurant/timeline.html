@@ -24,10 +24,10 @@
 							<div class="col col-xl-8 m-auto col-lg-8 col-md-12">
 								<ul class="profile-menu">
 									<li>
-										<a href="" class="active">Timeline</a>
+										<a href="/restaurant/{{restaurant.slug}}/timeline" class="active">Timeline</a>
 									</li>
                                     <li>
-										<a href="">Foods</a>
+										<a href="/restaurant/{{restaurant.slug}}/foods">Foods</a>
 									</li>
                                     <li>
 										<a href="">Promotions</a>
@@ -71,7 +71,7 @@
 {% block content %}
 <div class="row">
 		<div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-sm-12 col-12">
-			<div id="newsfeed-items-grid">
+			<div id="newsfeed-items-grid infinite-container">
 
             {% for comment in comments %}
 
@@ -212,8 +212,14 @@
 
 
 			</div>
+
+             <div class="loading" style="display: none;">
+                Loading...
+              </div>
+                {% if cooments.has_next %}
 			<a id="load-more-button" href="#" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid">
                 <svg class="olymp-three-dots-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use></svg></a>
+            {% endif %}
 
 		</div>
 
@@ -815,5 +821,16 @@
        var id = this.id;
        $('#replies_'+id).toggle();
     });
+
+      var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
 </script>
+
 {% endblock %}

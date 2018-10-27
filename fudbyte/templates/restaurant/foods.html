@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block before_container %}
+<div class="container">
+	<div class="row">
+		<div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<div class="ui-block">
+				<div class="top-header top-header-favorit">
+					<div class="top-header-thumb">
+                        {% if restaurant.cover_photo %}
+						<img src="{{ restaurant.cover_photo.url }}" alt="nature" style="height: auto;  max-height: 360px;">
+                        {% endif %}
+						<div class="top-header-author">
+							<div class="author-thumb">
+								<img src="{{ restaurant.logo.url }}" alt="author" style="height: 100%;">
+							</div>
+							<div class="author-content">
+								<a href="#" class="h3 author-name">{{ restaurant.name }}</a>
+								<div class="country">{{ restaurant.city }}</div>
+							</div>
+						</div>
+					</div>
+					<div class="profile-section">
+						<div class="row">
+							<div class="col col-xl-8 m-auto col-lg-8 col-md-12">
+								<ul class="profile-menu">
+									<li>
+										<a href="/restaurant/{{restaurant.slug}}/timeline" class="active">Timeline</a>
+									</li>
+                                    <li>
+										<a href="/restaurant/{{restaurant.slug}}/foods">Foods</a>
+									</li>
+                                    <li>
+										<a href="">Promotions</a>
+									</li>
+									<!--<li>-->
+										<!--<a href="13-FavouritePage-About.html">About</a>-->
+									<!--</li>-->
+									<!--<li>-->
+										<!--<a href="07-ProfilePage-Photos.html">Photos</a>-->
+									<!--</li>-->
+									<!--<li>-->
+										<!--<a href="09-ProfilePage-Videos.html">Videos</a>-->
+									<!--</li>-->
+									<!--<li>-->
+										<!--<a href="14-FavouritePage-Statistics.html">Statistics</a>-->
+									<!--</li>-->
+									<!--<li>-->
+										<!--<a href="15-FavouritePage-Events.html">Events</a>-->
+									<!--</li>-->
+								</ul>
+							</div>
+						</div>
+
+						<div class="control-block-button">
+							<a href="#" class="btn btn-control bg-primary">
+								<svg class="olymp-star-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-star-icon"></use></svg>
+							</a>
+
+							<a href="#" class="btn btn-control bg-purple">
+								<svg class="olymp-chat---messages-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-chat---messages-icon"></use></svg>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+			<div class="ui-block responsive-flex">
+				<div class="ui-block-title">
+					<div class="h6 title">{{ restaurant.name }}'s Food Store</div>
+
+                    {% if request.user == restaurant.user %}
+					<div class="block-btn align-right">
+						<a href="#" data-toggle="modal" data-target="#create-photo-album" class="btn btn-primary btn-md-2">Add Food  +</a>
+
+					</div>
+                    {% endif %}
+
+                    <form class="w-search">
+						<div class="form-group with-button">
+							<input class="form-control" type="text" placeholder="Search Food...">
+							<button>
+								<svg class="olymp-magnifying-glass-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-magnifying-glass-icon"></use></svg>
+							</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for food in foods %}
+		<div class="col col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12">
+			<div class="ui-block">
+
+				<article class="hentry post has-post-thumbnail thumb-full-width">
+
+
+					<div class="post-thumb">
+						<img src="{{ food.image.url }}" alt="photo">
+					</div>
+
+					<a href="#" data-toggle="modal" data-target="#blog-post-popup" class="h2 post-title">
+                       {{ food.name }}</a>
+
+					<p>{{ food.price }}
+					</p>
+
+					<p>{{ food.description }}
+					</p>
+
+					<a href="#" data-toggle="modal" data-target="#blog-post-popup" class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Read More</a>
+
+					<div class="post-additional-info inline-items">
+
+						<a href="#" class="post-add-icon inline-items">
+							<svg class="olymp-heart-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-heart-icon"></use></svg>
+							<span>{{ food.likes|length }}</span>
+						</a>
+
+						<!--<ul class="friends-harmonic">-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/friend-harmonic5.jpg" alt="friend">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/friend-harmonic10.jpg" alt="friend">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/friend-harmonic7.jpg" alt="friend">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/friend-harmonic8.jpg" alt="friend">-->
+								<!--</a>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a href="#">-->
+									<!--<img src="img/friend-harmonic2.jpg" alt="friend">-->
+								<!--</a>-->
+							<!--</li>-->
+						<!--</ul>-->
+
+						<!--<div class="names-people-likes">-->
+							<!--<a href="#">Jenny </a>, <a href="#">Robert</a> and-->
+							<!--<br>6 more liked this-->
+						<!--</div>-->
+
+
+						<div class="comments-shared">
+							<a href="#" class="post-add-icon inline-items">
+								<svg class="olymp-speech-balloon-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use></svg>
+								<span>{{ food.comments|length }}</span>
+							</a>
+
+							<a href="#" class="post-add-icon inline-items">
+								<svg class="olymp-share-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+								<span>0</span>
+							</a>
+						</div>
+
+
+					</div>
+
+					<div class="control-block-button post-control-button">
+
+						<a href="#" class="btn btn-control">
+							<svg class="olymp-like-post-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-like-post-icon"></use></svg>
+						</a>
+
+						<a href="#" class="btn btn-control">
+							<svg class="olymp-comments-post-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-comments-post-icon"></use></svg>
+						</a>
+
+						<a href="#" class="btn btn-control">
+							<svg class="olymp-share-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-share-icon"></use></svg>
+						</a>
+
+					</div>
+
+				</article>
+
+			</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -41,7 +41,7 @@ class Restaurant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    user_created = models.ForeignKey(User, blank=True, null=True)
+    users = models.ManyToManyField(User, blank=True, null=True, through='RestaurantUser')
     latitude = models.CharField(max_length=255, blank=True, null=True)
     longitude = models.CharField(max_length=255, blank=True, null=True)
 
@@ -70,6 +70,17 @@ class Restaurant(models.Model):
         super(Restaurant, self).save(*args, **kwargs)
 
 
+class RestaurantUser(models.Model):
+
+    USERS_ROLES = (('Owner', 'Owner'),
+                   ('Admin', 'Admin'),
+                   ('Following', 'Following'))
+
+    restaurant = models.ForeignKey(Restaurant)
+    user = models.ForeignKey(User, blank=True, null=True)
+    role = models.TextField(max_length=255, blank=True, null=True, choices=USERS_ROLES)
+
+
 class Food(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -77,7 +88,6 @@ class Food(models.Model):
     views = models.IntegerField(blank=True, null=True)
     restaurant = models.ForeignKey('Restaurant', models.DO_NOTHING, blank=True, null=True)
     image = models.ImageField(blank=True, null=True, upload_to='food_images')
-    likes = models.IntegerField(blank=True, null=True, default=0)
     is_featured = models.BooleanField(default=False)
     slug = models.CharField(max_length=255, blank=True, null=True, unique=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -89,6 +99,9 @@ class Food(models.Model):
 
     def comments(self):
         return Comment.objects.filter(food=self)
+
+    def likes(self):
+        return Like.objects.filter(food=self)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -122,3 +135,11 @@ class Comment(BaseModel):
 
     def __str__(self):
         return self.message
+
+
+class Like(BaseModel):
+    food = models.ForeignKey(Food, blank=True, null=True)
+    user = models.ForeignKey(User, blank=True, null=True)
+
+    def __str__(self):
+        return '{} liked {}'.format(self.user.name, self.food.name)
