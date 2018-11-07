@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Restaurant, Food, Comment
+from .models import Restaurant, Food, Comment, FoodLike, RestaurantUser
 
 
 class FoodAdmin(admin.ModelAdmin):
@@ -10,3 +10,5 @@ class FoodAdmin(admin.ModelAdmin):
 admin.site.register(Restaurant)
 admin.site.register(Food, FoodAdmin)
 admin.site.register(Comment)
+admin.site.register(FoodLike)
+admin.site.register(RestaurantUser)

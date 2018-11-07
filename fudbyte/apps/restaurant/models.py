@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from account.models import User
-from fudbyte.utils.models import BaseModel
+from fudbyte.utils.models import BaseModel, get_object_or_none
 
 
 def generate_another_slug(slug, cycle):
@@ -78,7 +78,15 @@ class RestaurantUser(models.Model):
 
     restaurant = models.ForeignKey(Restaurant)
     user = models.ForeignKey(User, blank=True, null=True)
-    role = models.TextField(max_length=255, blank=True, null=True, choices=USERS_ROLES)
+    role = models.CharField(max_length=255, blank=True, null=True, choices=USERS_ROLES)
+
+    @classmethod
+    def can_manage_foods(cls, restaurant, user):
+        restaurant_user = get_object_or_none(cls, restaurant=restaurant, user=user)
+        if restaurant_user:
+            if restaurant_user.role == 'Admin' or restaurant_user.role == 'Owner':
+                return True
+        return False
 
 
 class Food(models.Model):
@@ -101,7 +109,7 @@ class Food(models.Model):
         return Comment.objects.filter(food=self)
 
     def likes(self):
-        return Like.objects.filter(food=self)
+        return FoodLike.objects.filter(food=self)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -137,7 +145,7 @@ class Comment(BaseModel):
         return self.message
 
 
-class Like(BaseModel):
+class FoodLike(BaseModel):
     food = models.ForeignKey(Food, blank=True, null=True)
     user = models.ForeignKey(User, blank=True, null=True)
 

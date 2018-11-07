@@ -32,6 +32,9 @@
                                     <li>
 										<a href="">Promotions</a>
 									</li>
+                                    <li>
+                                        <a href="">Following</a>
+                                    </li>
 									<!--<li>-->
 										<!--<a href="13-FavouritePage-About.html">About</a>-->
 									<!--</li>-->
@@ -74,7 +77,7 @@
 				<div class="ui-block-title">
 					<div class="h6 title">{{ restaurant.name }}'s Food Store</div>
 
-                    {% if request.user == restaurant.user %}
+                    {% if can_manage_food %}
 					<div class="block-btn align-right">
 						<a href="#" data-toggle="modal" data-target="#create-photo-album" class="btn btn-primary btn-md-2">Add Food  +</a>
 
@@ -118,7 +121,11 @@
 					<p>{{ food.description }}
 					</p>
 
-					<a href="#" data-toggle="modal" data-target="#blog-post-popup" class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Read More</a>
+                    {% if can_manage_food %}
+
+					<a href="#" data-toggle="modal" data-target="#blog-post-popup" class="btn btn-md-2 btn-border-think c-grey btn-transparent custom-color">Edit</a>
+
+                    {% endif %}
 
 					<div class="post-additional-info inline-items">
 
@@ -199,5 +206,62 @@
         {% endfor %}
     </div>
 </div>
+
+
+
+<!-- Window-popup Create Photo Album -->
+
+<div class="modal fade" id="create-photo-album" tabindex="-1" role="dialog" aria-labelledby="create-photo-album" aria-hidden="true">
+	<div class="modal-dialog window-popup create-photo-album" role="document">
+		<div class="modal-content" style="width: 100%">
+			<a href="#" class="close icon-close" data-dismiss="modal" aria-label="Close">
+				<svg class="olymp-close-icon"><use xlink:href="/static/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
+			</a>
+
+			<div class="modal-header">
+				<h6 class="title">Add New Food</h6>
+			</div>
+
+			<div class="modal-body">
+
+			<form style="width: 100%;" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group label-floating">
+                    <label class="control-label">Name</label>
+				    <input class="form-control" name="name" placeholder="" type="text" required="required">
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Description</label>
+                    <textarea class="form-control" name="description"></textarea>
+                </div>
+
+                <div class="form-group label-floating">
+                    <label class="control-label">Price</label>
+				    <input class="form-control" name="price" placeholder="" value="GH₵ " type="text" required="required">
+                </div>
+
+                <div class="file-upload">
+                    <label for="upload" class="file-upload__label">Click To Upload Food Image</label>
+                    <input id="upload" class="file-upload__input" type="file" name="image" required="required">
+                </div>
+
+
+
+            <div style="width: 98%; margin: 0 auto;">
+                <a href="#"  data-dismiss="modal" class="btn btn-secondary btn-lg btn--half-width">Discard Everything</a>
+			    <button type="submit" class="btn btn-primary btn-lg btn--half-width">Add Food</button>
+            </div>
+
+            </form>
+           </div>
+
+
+		</div>
+		</div>
+	</div>
+</div>
+
+<!-- ... end Window-popup Create Photo Album -->
 
 {% endblock %}
