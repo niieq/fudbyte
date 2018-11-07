@@ -41,7 +41,7 @@ class Restaurant(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
-    users = models.ManyToManyField(User, blank=True, null=True, through='RestaurantUser')
+    users = models.ManyToManyField(User, blank=True, through='RestaurantUser')
     latitude = models.CharField(max_length=255, blank=True, null=True)
     longitude = models.CharField(max_length=255, blank=True, null=True)
 
