@@ -62,9 +62,10 @@ def foods(request, restaurant_slug):
     if request.method == 'POST':
         foodform = FoodForm(request.POST, request.FILES)
         if foodform.is_valid():
-            saved_food = foodform.save(commit=False)
-            saved_food.restaurant = restaurant
-            saved_food.save()
+            if can_manage_food:
+                saved_food = foodform.save(commit=False)
+                saved_food.restaurant = restaurant
+                saved_food.save()
             return redirect('/restaurant/{}/foods'.format(restaurant_slug))
     return render(request, 'restaurant/foods.html', {'foods': foods, 'restaurant': restaurant,
                                                      'can_manage_food': can_manage_food,
