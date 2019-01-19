@@ -181,9 +181,11 @@
             <a href="/">Home</a>
             <span class="icon breadcrumbs-custom">/</span>
           </li>
-          <!--<li class="breadcrumbs-item active">-->
-            <!--<span>Blog Grid</span>-->
-          <!--</li> -->
+           {% if restaurant_filter %}
+          <li class="breadcrumbs-item active">
+            <span>{{ restaurant_filter }}</span>
+          </li>
+           {% endif %}
         </ul>
       </div>
 
@@ -242,7 +244,7 @@
                 <select name="restaurant" id="" class="selectpicker form-control">
                     <option value="All">All</option>
                     {% for restaurant in restaurants %}
-                    <option value="{{ restaurant.slug }}">{{ restaurant.name }}</option>
+                    <option value="{{ restaurant.slug }}" {% if restaurant_filter == restaurant.slug %}selected{% endif %}>{{ restaurant.name }}</option>
                     {% endfor %}
                 </select>
 
@@ -276,7 +278,9 @@
           <article class="hentry blog-post">
 
             <div class="post-thumb">
+                {% if food.image %}
                <a href="/food/{{food.slug}}"><img src="{{ food.image.url }}" alt="photo"></a>
+                {% endif %}
             </div>
 
             <div class="post-content">

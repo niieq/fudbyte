@@ -56,7 +56,7 @@ def post_food_like(request, restaurant_slug, food_slug):
 @login_required()
 def foods(request, restaurant_slug):
     restaurant = get_object_or_404(Restaurant, slug=restaurant_slug)
-    foods = Food.objects.filter(restaurant=restaurant, active=True).exclude(image__exact='')
+    foods = Food.objects.filter(restaurant=restaurant, active=True)
     can_manage_food = RestaurantUser.can_manage_foods(restaurant, request.user)
     foodform = FoodForm()
     if request.method == 'POST':

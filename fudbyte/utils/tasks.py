@@ -130,5 +130,3 @@ def assign_kfc_related_images():
             if food.image:
                 other_food.image = File(food.image, food.image.name)
                 other_food.save()
-
-

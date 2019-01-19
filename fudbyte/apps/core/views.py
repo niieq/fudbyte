@@ -11,18 +11,18 @@ def index(request):
     restaurants = Restaurant.objects.filter(active=True)
     restaurant_filter = request.GET.get('restaurant')
     food_search = request.GET.get('food')
-    food_list = Food.objects.filter(active=True).exclude(image__exact='')
+    food_list = Food.objects.filter(active=True)
 
     if restaurant_filter:
         if restaurant_filter == 'All':
-            food_list = Food.objects.filter(active=True).exclude(image__exact='')
+            food_list = Food.objects.filter(active=True)
         else:
             restaurant = get_object_or_none(Restaurant, slug=restaurant_filter)
             if restaurant:
-                food_list = Food.objects.filter(restaurant=restaurant).exclude(image__exact='')
+                food_list = Food.objects.filter(restaurant=restaurant)
 
     if food_search:
-        food_list = Food.objects.filter(name__icontains=food_search).exclude(image__exact='')
+        food_list = Food.objects.filter(name__icontains=food_search)
 
     page = request.GET.get('page', 1)
 
@@ -34,7 +34,8 @@ def index(request):
     except EmptyPage:
         foods = paginator.page(paginator.num_pages)
     return render(request, 'index.html', {'restaurants': restaurants,
-                                          'foods': foods})
+                                          'foods': foods,
+                                          'restaurant_filter': restaurant_filter})
 
 
 def food_detail(request, food_slug):

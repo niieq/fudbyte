@@ -3,12 +3,14 @@
 <meta property="og:title" content="{{ food.name }}">
 <meta property="og:type" content="article" />
 <meta property="og:description" content="{{ food.description }}">
+{% if food.image %}
 <meta property="og:image" content="https://fudbyte.com/{{ food.image.url }}">
+<meta name="twitter:image" content="https://fudbyte.com/{{ food.image.url }}">
+{% endif %}
 <meta property="og:url" content="https://fudbyte.com/food/{{ food.slug }}">
 
 <meta name="twitter:title" content="{{ food.name }}">
 <meta name="twitter:description" content="{{ food.description }}">
-<meta name="twitter:image" content="https://fudbyte.com/{{ food.image.url }}">
 <meta name="twitter:card" content="summary_large_image">
 {% endblock %}
 {% block content %}
