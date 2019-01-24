@@ -313,7 +313,15 @@
   <script src="/static/js/base-init.js"></script>
   <script defer src="/static/fonts/fontawesome-all.js"></script>
   <script src="/static/js/bootstrap.bundle.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133179557-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-133179557-1');
+</script>
 
     {% block extra_js%}{% endblock %}
   </body>
