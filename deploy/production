@@ -1,8 +1,0 @@
-[all:vars]
-env=production
-
-[webservers]
-fudbyte.com ansible_ssh_user=root
-
-[dbservers]
-fudbyte.com ansible_ssh_user=root

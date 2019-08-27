@@ -30,7 +30,7 @@ SECRET_KEY = '4*hh@%imhcth_&x6ih)kcfdzh*f_a&1oxq(26zzemyo#pr($0^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*.fudbyte.com']
+ALLOWED_HOSTS = ['*']
 
 ADMINS = [
     # ('Your Name', 'your_email@example.com'),

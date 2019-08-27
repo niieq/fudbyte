@@ -1,0 +1,1 @@
+web: gunicorn fudbyte.wsgi --log-file -
