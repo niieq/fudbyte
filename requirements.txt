@@ -10,7 +10,7 @@ shortuuid==0.5.0
 Pillow==4.1.1
 requests==2.18.4
 django-cors-headers==2.1.0
-djangorestframework==3.7.3
+djangorestframework==3.11.2
 ansible==2.4.2.0
 django-extensions==1.7.9
 django-celery==3.2.1
